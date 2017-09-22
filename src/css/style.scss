@@ -1,0 +1,300 @@
+@mixin flex-center() {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    flex-direction: column;
+}
+
+@import 'rt-raleway';
+
+$shadow-0: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+$shadow-0-2: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
+$shadow-1: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+$shadow-2: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+$shadow-3: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+$shadow-4: 0 10px 20px rgba(0, 0, 0, 0.22), 0 14px 56px rgba(0, 0, 0, 0.25);
+$shadow-5: 0 15px 24px rgba(0, 0, 0, 0.22), 0 19px 76px rgba(0, 0, 0, 0.3);
+$transition: cubic-bezier(0.23, 0.54, 0.19, 0.99);
+$transition-2: cubic-bezier(0.08, 0.54, 0.45, 0.91);
+
+$black-1: rgba(0,0,0,.87);
+$black-2: rgba(0,0,0,.54);
+$black-3: rgba(0,0,0,.38);
+$black-4: rgba(0,0,0,.12);
+$primary-dark: #1c1d21;
+$primary-light: #e2e2e2;
+$text-light-primary: white;
+$text-light-secondary: rgba(255,255,255,.4);
+$text-dark-primary: $black-1;
+$text-dark-secondary: $black-2;
+
+
+$background-1: #f2f2f2;
+$background-2: white;
+
+$accent-1: #88f9d4;
+$accent-2: #18c29c;
+$accent-3: #0b877d;
+$accent-4: #126872;
+$accent-5: #031727;
+
+// #004358
+// #1F8A70
+// #BEDB39
+// #FFE11A
+// #FD7400
+
+// -----
+
+.mv-mint-video * {
+	box-sizing: border-box;
+}
+.mv-mint-video {
+	@include flex-center();
+	position: relative;
+	height: 360px;
+	width: 640px;
+	user-select: none;
+	font-family: sans-serif;
+	color: $text-light-primary;
+	background: $accent-5;
+
+	&:-webkit-full-screen {
+		height: 100%;
+		width: 100%;
+	}
+
+	/* .mv-video {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		// pointer-events: none;
+		z-index: 0;
+	} */
+	.mv-btn-big {
+		@include flex-center();
+		background: $accent-3;
+		border: none;
+		border-radius: 3px;
+		height: 50px;
+		line-height: 50px;
+		width: 66px;
+		box-shadow: $shadow-3;
+		margin-top: -20px;
+		cursor: pointer;
+		will-change: background, box-shadow;
+		transition: background .15s $transition,
+					box-shadow .15s $transition;
+		z-index: 100;
+
+		svg {
+			height: 40px;
+
+			path {
+				fill: white;
+			}
+		}
+		&:hover {
+			box-shadow: $shadow-4;
+			background: $accent-4;
+		}
+	}
+	&.playing .mv-btn-big {
+		display: none;
+	}
+	.mv-gradient {
+		position: absolute;
+		width: 100%;
+		height: 25%;
+		left: 0;
+		opacity: 0;
+		transition: opacity .25s $transition;
+		z-index: 90;
+		pointer-events: none;
+		will-change: opacity;
+
+		&.top {
+			top: 0;
+			background: linear-gradient(180deg, rgba(0,0,0,.20), transparent);
+		}
+		&.bottom {
+			bottom: 0;
+			background: linear-gradient(0deg, rgba(0,0,0,.54), transparent);
+		}
+	}
+	&.controls-active .mv-gradient,
+	&:not(.playing) .mv-gradient {
+		opacity: 1;
+	}
+	.mv-video {
+		position: absolute;
+		// top: 0;
+		// left: 0;
+		// min-height: 100%;
+		// min-width: 100%;
+		max-width: 100%;
+		max-height: 100%;
+		height: 100%;
+		width: auto;
+		// height: auto;
+		z-index: 0;
+	}
+	.mv-controls {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		opacity: 0;
+		will-change: opacity;
+		z-index: 100;
+		transition: opacity .25s $transition;
+
+		.mv-progress {
+			height: 4px;
+			position: relative;
+			background: rgba(255,255,255,.12);
+			cursor: pointer;
+			margin: 0 10px;
+
+			.mv-progressbar {
+				position: absolute;
+				background: $accent-2;
+				// width: 50%;
+				height: 100%;
+			}
+			.mv-loadbar {
+				position: absolute;
+				background: $accent-4;
+				// width: 75%;
+				height: 100%;
+			}
+			.mv-progressbar-scrubber {
+				position: absolute;
+				display: block;
+				height: 10px;
+				width: 10px;
+				// left: 50%;
+				margin-top: -3px;
+				margin-left: -5px;
+				border-radius: 50%;
+				background: $accent-1;
+				box-shadow: $shadow-2;
+			}
+		}
+		.mv-buttons {
+			height: 36px;
+			line-height: 36px;
+			margin: 0 10px;
+			display: flex;
+
+			.mv-spacer {
+				flex: 1;
+			}
+			.mv-btn {
+				@include flex-center();
+				// height: 36px;
+				min-width: 40px;
+				flex: none;
+				background: transparent;
+				border: none;
+				outline: none;
+				cursor: pointer;
+				will-change: background;
+				transition: background .15s $transition;
+
+				svg {
+					height: 28px;
+					path {
+						fill: $accent-1;
+					}
+				}
+				&:hover {
+					// background: rgba(255,255,255,.12);
+					// color: $text-light-primary;
+					svg path {
+						// fill: $accent-2;
+					}
+				}
+				&#mv-btn-settings svg {
+					// the gear is way too big otherwise
+					height: 22px;
+				}
+			}
+		}
+		.mv-timestamp {
+			padding: 0 4px;
+			color: $text-light-primary;
+			font-size: .8rem;
+			cursor: default;
+		}
+		.mv-btn#mv-btn-volume:hover + .mv-range {
+			width: 80px;
+			padding: 0 10px 0 0;
+		}
+		.mv-range {
+			box-sizing: content-box;
+			position: relative;
+			width: 0;
+			overflow: hidden;
+			margin: 0 6px 0 0;
+			// padding: 0 0 0 2px;
+			will-change: width;
+			cursor: pointer;
+			transition: width .3s $transition;
+
+			&:hover {
+				width: 80px;
+				padding: 0 10px 0 0;
+			}
+			.mv-rangebar-value {
+				position: absolute;
+				top: 16px;
+				left: 5px;
+				height: 4px;
+				// width: 40px;
+				background: $accent-2;
+			}
+			.mv-rangebar {
+				position: absolute;
+				top: 16px;
+				left: 5px;
+				height: 4px;
+				width: 80px;
+				background: rgba(255,255,255,.12);
+			}
+			.mv-range-scrubber {
+				position: absolute;
+				top: 16px;
+				display: block;
+				height: 10px;
+				width: 10px;
+				// left: 40px;
+				left: 5px;
+				margin-top: -3px;
+				// margin-left: -5px;
+				border-radius: 50%;
+				background: $accent-1;
+				box-shadow: $shadow-2
+			}
+		}
+	}
+	&.controls-active .mv-controls {
+		opacity: 1;
+	}
+	.mv-poster {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+		z-index: 80;
+		padding: 14px;
+		font-size: 1.3rem;
+		text-shadow: $shadow-2;
+	}
+	&.playing .mv-poster {
+		display: none;
+	}
+}
